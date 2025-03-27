@@ -135,7 +135,7 @@ def main_applicants():
     selected_job = select_job_title(in_progress_openings)
     if not selected_job:
         return
-
+    
     job_title = selected_job['Posting_Title']
     job_description = selected_job.get("Job_Description", "")
     # print(job_description)
@@ -147,11 +147,11 @@ def main_applicants():
     detailed_applications = fetch_detailed_applications(applications)
     print(f"\nSuccessfully fetched detailed info for {len(detailed_applications)} candidates.")
 
-    with open(r"json\detailed_candidates.json", "w") as file:
+    with open(rf"json\detailed_candidates_{job_title}.json", "w") as file:
         json.dump(detailed_applications, file, indent=4)
-        print("\nSaved detailed data to 'detailed_candidates.json'.")
+        print(f"\nSaved detailed data to 'detailed_candidates_{job_title}.json'.")
 
-    return job_description, detailed_applications
+    return job_description, detailed_applications, job_title
 
 if __name__ == "__main__":
     main_applicants()
