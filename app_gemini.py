@@ -6,7 +6,7 @@ from applicants import main_applicants
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from system_prompt_frontend import system_prompt
+from system_prompts.system_prompt_frontend import system_prompt
 
 def initialize_llm():
     return ChatGoogleGenerativeAI(

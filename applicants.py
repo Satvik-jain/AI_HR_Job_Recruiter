@@ -147,7 +147,7 @@ def main_applicants():
     detailed_applications = fetch_detailed_applications(applications)
     print(f"\nSuccessfully fetched detailed info for {len(detailed_applications)} candidates.")
 
-    with open("detailed_candidates.json", "w") as file:
+    with open(r"json\detailed_candidates.json", "w") as file:
         json.dump(detailed_applications, file, indent=4)
         print("\nSaved detailed data to 'detailed_candidates.json'.")
 
