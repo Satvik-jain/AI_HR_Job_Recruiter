@@ -38,8 +38,8 @@ async def wait_for_call_completion(retell_client, call_id, max_retries=20, delay
             print(f"Call Status: {status}")
 
             if status in ["ended", "error"]:
-                print("Call ended, waiting for 15 seconds before checking analysis...")
-                await asyncio.sleep(15)
+                print("Call ended, waiting for 10 seconds before checking analysis...")
+                await asyncio.sleep(10)
                 return status_response
             await asyncio.sleep(delay)
         except Exception as e:

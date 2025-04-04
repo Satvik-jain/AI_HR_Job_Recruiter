@@ -177,7 +177,7 @@ cython_debug/
 
 
 
-.json
+*.json
 
 
 auth/

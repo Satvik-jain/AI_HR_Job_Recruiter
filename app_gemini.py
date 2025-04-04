@@ -31,7 +31,6 @@ def create_candidate_evaluation_prompt(system_prompt):
     ])
 
 def evaluate_candidates(job_description, detailed_applications, job_title):
-    # Try to load previous progress
     try:
         with open(rf'json\evaluation_progress_{job_title}.json', 'r') as f:
             progress = json.load(f)
@@ -43,7 +42,6 @@ def evaluate_candidates(job_description, detailed_applications, job_title):
         rejected_candidates = []
         start_index = 0
 
-    # Prepare LLM and chain
     llm = initialize_llm()
 
     if (job_title=='Senior Frontend Developer'):
@@ -55,17 +53,14 @@ def evaluate_candidates(job_description, detailed_applications, job_title):
     output_parser = JsonOutputParser()
     chain = prompt | llm | output_parser
 
-    # Slice the detailed_applications to start from last processed index
     candidates_to_process = detailed_applications[start_index:]
 
-    # Retry strategy parameters
     max_retries = 3
-    base_delay = 5  # Base delay in seconds
+    base_delay = 5 
 
     for index, candidate in enumerate(candidates_to_process, start=start_index):
         print(f"Evaluating Candidate {index+1}/{len(detailed_applications)}")
 
-        # Convert candidate dict to a more readable profile string
         candidate_profile = f"""
         Name: {candidate.get('Full_Name', 'N/A')}
         Current Role: {candidate.get('Current_Job_Title', 'N/A')}
@@ -148,7 +143,6 @@ def evaluate_candidates(job_description, detailed_applications, job_title):
 
 def main():
 
-    ## IF YOU WANT REALTIME APPLICANTS, UNCOMMENT THE BELOW LINE
     job_description, detailed_applications, job_title = main_applicants()
 
     # job_description = """Company: Tarini Consulting  Location: Remote (India)  Experience Level: 6-8 Years  Salary Range: ₹14-15 LPA(in hand) ​  Are you a talented Laravel Developer with a diverse experience in crafting elegant and efficient web solutions? Tarini Consulting, a leading IT company, is on the lookout for Remote Laravel Developers to join our dynamic team.   Key Responsibilities: Lead the development team to design and implement and improve Laravel-based web applications. Develop, test, and maintain robust and scalable code following best practices. Troubleshoot, debug, and upgrade existing systems for optimal performance. Work closely with front-end developers to integrate user-facing elements with server-side logic. Stay updated on Laravel framework updates and industry best practices. Contribute to the planning and execution of software projects.   Requirements Bachelor’s degree in Computer Science, IT, or a related field. 6-8 Years experience in PHP Laravel Framework Familiarity with front-end technologies such as HTML, CSS, and JavaScript. Knowledge of database design and management using MySQL. Strong problem-solving and analytical skills. Ability to work independently and collaboratively in a remote team environment.   Benefits Competitive salary Opportunity to work remotely and enjoy a flexible work environment. Engage with cutting-edge technologies in a collaborative work culture. Contribute to innovative projects and be a part of a forward-thinking IT company. If you have a passion for web development and want to be part of a thriving IT community, we invite you to apply.  Tarini Consulting is an equal opportunity employer and encourages applicants from diverse backgrounds.   *Note: This is a remote position, and applicants must be based in India."""
